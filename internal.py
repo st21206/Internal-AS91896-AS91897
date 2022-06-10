@@ -16,6 +16,8 @@ def item_details():
     Item = 0
     Item_quantity = 0
 
+    print"hello world"
+
     #create labels as headings for printed info
     Label(Main_Window, font='bold', text='Row').grid(column=0,row=20)
     Label(Main_Window, font='bold', text='Name').grid(column=1,row=20)
