@@ -26,11 +26,5 @@ def main():
     global Main_Window
     global item_details, Customer_name
     Main_Window =Tk()
-    setup_buttons()
+
     Main_Window.mainloop
-
-root=tk()
-
-root.geometry('500x750')
-
-root.mainloop()
