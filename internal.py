@@ -1,4 +1,4 @@
-"This program is used to keep track of items that are hired for Julie's Party Hire Store"
+'This program is used to keep track of items that are hired for Julie's Party Hire Store'
 
 from tkinter import *
 from tkinter import ttk 
@@ -8,19 +8,22 @@ def quit ():
     Main_Window.destroy()
 
 def print_item_details():
-    global Customer_name, Receipt_number, Item, Item_quantity
-    Customer_name = 0
-    Receipt_number = 0
-    Item = 0
-    Item_quantity = 0
-    #create labels as headings for printed info
-    Label(Main_Window, font='bold', text='Row').grid(column=0,row=20)
-    Label(Main_Window, font='bold', text='Name').grid(column=1,row=20)
-    Label(Main_Window, font='bold', text='Item').grid(column=2,row=20)
-    Label(Main_Window, font='bold', text='Quantity').grid(column=3,row=20)
-    Label(Main_Window, font='bold', text='Receipt No.').grid(column=4,row=20)
+    global Row, Name, Item, Quantity, Receipt No.,
+    create labels as headings for printed info
+    Label(Main_Window, font=('Helvetica 10 bold'),
+    text='Row').grid(column=0, row=7)
+     Label(Main_Window, font=('Helvetica 10 bold'),
+    text='Name').grid(column=0, row=8)
+     Label(Main_Window, font=('Helvetica 10 bold'),
+    text='Item').grid(column=0, row=9)
+     Label(Main_Window, font=('Helvetica 10 bold'),
+    text='Quantity').grid(column=0, row=10)
+     Label(Main_Window, font=('Helvetica 10 bold'),
+    text='Receipt No.').grid(column=0, row=11)
 
-#Start the programming running
+   
+
+Start the programming running
 
 def main():
     global Main_Window
