@@ -1,15 +1,13 @@
 'This program is used to keep track of Items that are hired for Julies Party Hire Store'
-
-
-
-from locale import normalize
 from tkinter import *
 from tkinter import ttk 
-import random
 
 
+from pip import main
 
-#Quit Subroutine
+#Old CODING BELOW
+
+"""#Quit Subroutine
 def quit ():
     main_window.destroy()
 
@@ -133,4 +131,38 @@ def main():
     main()
     root.geometry('1000x500')
     root.mainloop()
+"""
+#NEW CODING BELOW
 
+from tkinter import *
+from tkinter import ttk 
+
+root = Tk()
+root.title('Julies Party Hire Store Item Tracker')
+root.geometry('500x500')
+
+main_window = ttk.Treeview(root)
+
+#Define column
+main_window['columns'] = ('Row', 'Name', 'Item', 'Quantity', 'Receipt Number')
+
+#Format columns
+main_window.column('#0', width=0, stretch=NO)
+main_window.column('Row', anchor=W, width=120)
+main_window.column('Name', anchor=W, width=120)
+main_window.column('Item', anchor=W, width=120)
+main_window.column('Quantity', anchor=W, width=120)
+main_window.column('Receipt Number', anchor=W, width=120)
+
+#Create headings, W = West
+main_window.heading('#0', text='', anchor=W)
+main_window.heading('Row', text='Row', anchor=W)
+main_window.heading('Name', text='Name', anchor=W)
+main_window.heading('Item', text='Item', anchor=W)
+main_window.heading('Quantity', text='Quantity', anchor=W)
+main_window.heading('Receipt Number', text='Receipt Number', anchor=W)
+
+#Pack to the screen
+main_window.pack(pady=20)
+
+root.mainloop()
