@@ -5,8 +5,9 @@ from tkinter import ttk
 
 root = Tk()
 root.title('Julies Party Hire Store: Item Tracker')
-root.geometry('1000x600')
+root.geometry('1000x500')
 
+# implementing treeview
 program_tree = ttk.Treeview(root)
 
 # Define Columns
@@ -14,64 +15,143 @@ program_tree['columns'] = ('Row', 'Name', 'Item', 'Quantity', 'Receipt Number')
 
 # format the columns + phantom column
 program_tree.column('#0', width=0, stretch=NO)
+
 program_tree.column('Name', anchor=W, width=140)
+
 program_tree.column('Row', anchor=CENTER, width=140)
+
 program_tree.column('Item', anchor=W, width=140)
+
 program_tree.column('Quantity', anchor=W, width=140)
+
 program_tree.column('Receipt Number', anchor=W, width=140)
 
 # Create Headings
 program_tree.heading('#0', text='Placeholder', anchor=W)
+
 program_tree.heading('Name', text='Name', anchor=W)
+
 program_tree.heading('Row', text='Row', anchor=CENTER)
+
 program_tree.heading('Item', text='Item', anchor=W)
+
 program_tree.heading('Quantity', text='Quantity', anchor=W)
+
 program_tree.heading('Receipt Number', text='Receipt Number', anchor=W)
 
 # Pack to screen
 program_tree.pack(pady=20)
 
-add_frame = Frame(root)
-add_frame.pack(pady=20)
+user_input_window = Frame(root)
+user_input_window.pack(pady=20)
 
 # Labels
-Name = Label(add_frame, text='Name')
+Name = Label(user_input_window, text='Name')
 Name.grid(row=0, column=1)
 
-Row = Label(add_frame, text='Row')
+Row = Label(user_input_window, text='Row')
 Row.grid(row=0, column=0)
 
-Item = Label(add_frame, text='Item')
+Item = Label(user_input_window, text='Item')
 Item.grid(row=0, column=2)
 
-Quantity = Label(add_frame, text='Quantity')
+Quantity = Label(user_input_window, text='Quantity')
 Quantity.grid(row=0, column=3)
 
-Receipt_Number = Label(add_frame, text='Receipt Number')
+Receipt_Number = Label(user_input_window, text='Receipt Number')
 Receipt_Number.grid(row=0, column=4)
 
 # Entry Boxes
-name_box = Entry(add_frame)
-name_box.grid(row=1, column=0)
+row_box = Entry(user_input_window)
+row_box.grid(row=1, column=0)
 
-row_box = Entry(add_frame)
-row_box.grid(row=1, column=1)
+name_box = Entry(user_input_window)
+name_box.grid(row=1, column=1)
 
-item_box = Entry(add_frame)
+item_box = Entry(user_input_window)
 item_box.grid(row=1, column=2)
 
-quantity_box = Entry(add_frame)
+quantity_box = Entry(user_input_window)
 quantity_box.grid(row=1, column=3)
 
-receipt_number_box = Entry(add_frame)
+receipt_number_box = Entry(user_input_window)
 receipt_number_box.grid(row=1, column=4)
 
+# Error boxes
+
+row_error = Label(user_input_window)
+row_error.grid(row=2, column=0)
+
+name_error = Label(user_input_window)
+name_error.grid(row=2, column=1)
+
+item_error = Label(user_input_window)
+item_error.grid(row=2, column=2)
+
+quantity_error = Label(user_input_window)
+quantity_error.grid(row=2, column=3)
+
+receipt_error = Label(user_input_window)
+receipt_error.grid(row=2, column=4)
+
+# checking validity
+
+def clear_labels():
+    name_error.config(text='')
+    row_error.config(text='')
+    item_error.config(text='')
+    quantity_error.config(text='')
+    receipt_error.config(text='')
+
+def check_validity():
+    clear_labels()
+
+    input_valid=True
+    if name_box.get() == '':
+        name_error.config(text='Please enter')
+        input_valid = False
+        
+    row_input = row_box.get()
+    if row_input == '':
+        
+        row_error.config(text='Please enter')
+        input_valid = False
+    elif not row_input.strip().isdigit():
+        row_error.config(text='Use numbers only')
+        input_valid = False
+
+    if item_box.get() == '':
+        item_error.config(text='Please enter')
+        input_valid = False
+
+    quantity_input = quantity_box.get()
+    if quantity_input == '':
+        
+        quantity_error.config(text='Please enter')
+        input_valid = False
+    elif not quantity_input.strip().isdigit():
+        quantity_error.config(text='Use numbers only')
+        input_valid = False
+    
+    receipt_input = receipt_number_box.get()
+    if receipt_input == '':
+        
+        receipt_error.config(text='Please enter')
+        input_valid = False
+    elif not receipt_input.strip().isdigit():
+        receipt_error.config(text='Use numbers only')
+        input_valid = False
+        
+    if input_valid == True:
+        add_records()
+    else:
+        return
+ 
 # Add record
 global count
 count=0
 
-
-def add_record():
+def add_records():
     global count
     program_tree.insert(parent='', index='end', iid=count, text='Placeholder', values=(name_box.get(), row_box.get(), item_box.get(), quantity_box.get(), receipt_number_box.get()))
     count += 1
@@ -84,36 +164,41 @@ def add_record():
     receipt_number_box.delete(0, END)
 
 #Remove all records
-def remove_all():
+def remove_alls():
     for record in program_tree.get_children():
         program_tree.delete(record)
 
 # remove one selected
-def remove_one():
+def remove_ones():
     a = program_tree.selection()[0]
     program_tree.delete(a)
 
 # remove many selected
-def remove_many():
+def remove_manys():
     a = program_tree.selection()
     for record in a:
         program_tree.delete(record)
-  
+
+# making buttons use grid
+buttons = Frame(root)
+buttons.pack()
+
 # Buttons
-add_record = Button(root, text='Add Record', command=add_record)
-add_record.pack(pady=20)
+# add record
+add_record = Button(buttons, width=17, text='Add Record', command=check_validity)
+add_record.grid(row=0, column=0)
 
 # remove all
-remove_all = Button(root, text='Remove All Records', command=remove_all)
-remove_all.pack(pady=10)
+remove_all = Button(buttons, width=17, text='Remove All Records', command=remove_alls)
+remove_all.grid(row=0, column=1)
 
 # remove one
-remove_one = Button(root, text='Remove One Selected', command=remove_one)
-remove_one.pack(pady=10)
+remove_one = Button(buttons, width=17, text='Remove One Selected', command=remove_ones)
+remove_one.grid(row=1, column=0)
 
 # remove many selected
-remove_many = Button(root, text='Remove Many Selected', command=remove_many)
-remove_many.pack(pady=10)
+remove_many = Button(buttons, width=17, text='Remove Many Selected', command=remove_manys)
+remove_many.grid(row=1, column=1)
 
 root.mainloop()
 
